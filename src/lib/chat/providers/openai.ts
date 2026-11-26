@@ -38,6 +38,10 @@ export async function runOpenAICompatible(cfg: EngineConfig, system: string, his
         tool_choice: "auto",
       }),
     });
+    if (res.status === 503 && i === 0) {
+      await new Promise((r) => setTimeout(r, 2000)); // espera 2 s y reintenta una vez
+      continue;
+    }
     if (!res.ok) throw new Error(`${cfg.provider} ${res.status}: ${(await res.text()).slice(0, 300)}`);
     const data = (await res.json()) as { choices: { message: OAIMessage }[] };
     const msg = data.choices[0].message;
