@@ -4,7 +4,7 @@ import { readJson, withUser } from "@/lib/http";
 import { serviceErrorResponse } from "@/lib/services/workorders";
 
 export const dynamic = "force-dynamic";
-export const maxDuration = 30;
+export const maxDuration = 60;
 
 export async function POST(req: Request) {
   return withUser(async (user) => {
