@@ -264,18 +264,7 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
 ---
 
-## 10. Guion de demostración (5 minutos)
-
-1. **Contratista** (Carlos, 1111) → chat: «¿Qué órdenes tengo pendientes hoy?». Solo aparecen OT de su empresa.
-2. «Quiero reportar avance en la OT-2026-002» → describa el trabajo → elija `INPRG` → **Confirmar**. La tabla y la bitácora se actualizan solas.
-3. «Cerrar definitivamente la OT-2026-001» → bloqueado. «Estado de la OT-2026-010» → fuera de alcance (es de otra empresa).
-4. **Planeación** (Ana, 3333) → «Crear una nueva orden de trabajo» → el bot pide activo, ubicación, falla, prioridad, tipo y técnico → **Confirmar**.
-5. «Cerrar la OT-2026-005» → verificación y cierre. «Eliminar la OT-2026-009» → denegado para todos.
-6. **Analista** (Jorge, 4444) → pestaña **Historial de auditoría → Solo denegados**: aparecen todos los intentos anteriores con usuario, canal y referencia. **Exportar CSV** muestra el código de verificación.
-
----
-
-## 11. Seguridad y límites del prototipo
+## 10. Seguridad y límites del prototipo
 
 - Sesión en cookie `httpOnly` firmada con HMAC; el rol se lee de la BD en cada petición (el cliente no puede declararse otro rol).
 - Validación de entradas en servidor, máquina de estados y alcance por empresa.
@@ -285,22 +274,6 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
 ---
 
-## 12. Mejora continua: conectar el documento teórico del proyecto
-
-Cuando el documento final defina nombres de campos o reglas de negocio específicas, cada cambio tiene un único lugar:
-
-| Si el documento cambia… | Edite | Nota |
-|---|---|---|
-| Nombres/campos de la OT (ej. agregar presupuesto aprobado vs. ejecutado, acta de liquidación, materiales, servicios) | `src/lib/types.ts` → `supabase/schema.sql` → `src/lib/data/seed.ts` | Luego `npm run seed:sql` y muestre el campo en `WorkOrderDrawer.tsx` |
-| Estados o transiciones | `src/lib/domain.ts` (`STATUS_LABEL`, `TRANSITIONS`) | El `check` de `status` en `schema.sql` debe coincidir |
-| Roles y permisos | `src/lib/rbac.ts` (`ROLE_PERMISSIONS`, `ROLE_STATUS_TARGETS`) | Agregue el rol también en el `check` de `app_user.role` |
-| Reglas de validación (campos obligatorios, longitudes, quién crea) | `src/lib/services/workorders.ts` (`validateCreate`, `precheckProgress`) | Aplica a UI, chatbot y API a la vez |
-| Lo que el bot puede responder o preguntar | `src/lib/chat/tools.ts` (nuevas herramientas) y `src/lib/chat/prompt.ts` | En modo demo, agregue la intención en `mock-engine.ts` |
-| Canal de solo lectura (objetivo general del documento) | Variable `MODO_SOLO_LECTURA=true` | Bloquea toda escritura y deja la auditoría de cada consulta |
-
-Flujo recomendado: cree una rama `feature/<cambio>`, guarde en `docs/` la versión del documento que origina el cambio (diccionario de datos o reglas), haga el ajuste y abra un Pull Request hacia `develop`. Así cada regla del software queda trazable a la sección del documento que la justifica.
-
----
 
 ## Scripts
 
