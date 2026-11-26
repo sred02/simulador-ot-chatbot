@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+/* Tokens inspirados en IBM Carbon Design System (tema g10) */
+@theme {
+  --font-sans: "IBM Plex Sans", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-c100: #161616;
+  --color-c90: #262626;
+  --color-c80: #393939;
+  --color-c70: #525252;
+  --color-c60: #6f6f6f;
+  --color-c50: #8d8d8d;
+  --color-c40: #a8a8a8;
+  --color-c30: #c6c6c6;
+  --color-c20: #e0e0e0;
+  --color-c10: #f4f4f4;
+
+  --color-blue60: #0f62fe;
+  --color-blue70: #0043ce;
+  --color-blue10: #edf5ff;
+  --color-blue20: #d0e2ff;
+  --color-red60: #da1e28;
+  --color-green50: #24a148;
+  --color-yellow30: #f1c21b;
+  --color-orange40: #ff832b;
+}
+
+html,
+body {
+  background: var(--color-c10);
+  color: var(--color-c100);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Foco visible accesible estilo Carbon */
+:focus-visible {
+  outline: 2px solid var(--color-blue60);
+  outline-offset: -2px;
+}
+
+.scroll-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: var(--color-c30);
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(24px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.animate-slide-in {
+  animation: slide-in 160ms ease-out;
+}
+
+@keyframes row-flash {
+  from {
+    background: var(--color-blue20);
+  }
+  to {
+    background: transparent;
+  }
+}
+.row-flash {
+  animation: row-flash 2.4s ease-out;
+}
