@@ -59,7 +59,10 @@ export const TOOL_DEFS: ToolDef[] = [
   {
     name: "resumen_indicadores",
     description: "KPIs del tablero dentro del alcance del usuario: total, por estado, críticas y vencidas.",
-    parameters: { type: "object", properties: {} },
+    parameters: {
+      type: "object",
+      properties: { alcance: { type: "string", description: "Opcional; el alcance se aplica según el rol" } },
+    },
   },
   {
     name: "listar_catalogo",
